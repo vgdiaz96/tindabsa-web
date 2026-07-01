@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+const WA = 'https://wa.me/593969361746?text=Hola%20TINDAB,%20tengo%20un%20proyecto%20de%20etiquetado/envasado';
+const servicios = [
+  { t: 'Etiquetado', d: 'Manual y a volumen, con control de calidad.' },
+  { t: 'Armado de combos y packs', d: 'Promociones, kits y ofertas para percha.' },
+  { t: 'Termoencogido', d: 'Sellado de seguridad y agrupado.' },
+  { t: 'Códigos de barra', d: 'Generación y aplicación para retail.' },
+  { t: 'Envasado, llenado y sellado', d: 'Líquidos y formatos varios.' },
+  { t: 'Codificación inkjet', d: 'Lotes y fechas de vencimiento.' },
+];
+---
+<Base title="Etiquetado, envasado y armado de combos para tu marca" description="Servicios de maquila en Guayaquil: etiquetado, codificado, armado de combos y packs, termoencogido, envasado y códigos de barra. Capacidad flexible y bodega segura.">
+
+  <div class="hero" style="text-align:center">
+    <div class="container" style="max-width:720px">
+      <p class="kicker">Servicios de maquila</p>
+      <h1>Etiquetado, envasado y armado de combos para tu marca</h1>
+      <p class="lead">Tu producto llega a percha listo: etiquetamos, codificamos, armamos packs y gestionamos el material de empaque en nuestra bodega segura de Guayaquil.</p>
+      <div class="cta-row" style="justify-content:center">
+        <a href="/contacto/?tema=maquila" class="btn">Cuéntanos tu proyecto</a>
+        <a href={WA} class="btn-wa" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="bloque">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:24px">Qué hacemos</h2>
+      <div class="grid-3">
+        {servicios.map(s => (
+          <div class="card">
+            <h3>{s.t}</h3>
+            <p style="color:var(--texto3);font-size:.9rem;margin-top:4px">{s.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:24px">Cómo trabajamos</h2>
+      <div class="grid-3" style="text-align:center">
+        <div><span class="num" style="margin:0 auto 8px">1</span><strong>Cuéntanos tu proyecto</strong><p style="color:var(--texto3);font-size:.9rem">Volumen, producto y plazo.</p></div>
+        <div><span class="num" style="margin:0 auto 8px">2</span><strong>Propuesta a medida</strong><p style="color:var(--texto3);font-size:.9rem">Tabla de precios por volumen y cantidad mínima.</p></div>
+        <div><span class="num" style="margin:0 auto 8px">3</span><strong>Ejecución en bodega segura</strong><p style="color:var(--texto3);font-size:.9rem">Equipo escalable según el tamaño del trabajo.</p></div>
+      </div>
+      <p class="aviso" style="text-align:center;margin-top:24px">Capacidad flexible: hemos procesado desde lotes pequeños hasta contenedores completos con equipos de ~20 personas por día.</p>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <div class="container" style="max-width:720px">
+      <div class="card">
+        <h2 style="font-size:1.2rem;margin-bottom:16px">Cuéntanos tu proyecto</h2>
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="64528ab1-6543-4abb-bdba-4ab3aa33ce44" />
+          <input type="hidden" name="subject" value="Nuevo proyecto de maquila — tindabsa.com" />
+          <div class="form-grid" style="margin-bottom:12px">
+            <div><label for="m-nombre">Nombre y empresa</label><input id="m-nombre" name="nombre" required /></div>
+            <div><label for="m-contacto">Correo o teléfono</label><input id="m-contacto" name="contacto" required /></div>
+          </div>
+          <label for="m-detalle">¿Qué necesitas? (producto, volumen aproximado, plazo)</label>
+          <textarea id="m-detalle" name="detalle" rows="4" required style="margin-bottom:14px"></textarea>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <p style="font-size:.82rem;color:var(--texto3)">Tu solicitud llega a nuestro correo; también puedes escribirnos directo por WhatsApp.</p>
+            <button type="submit" class="btn">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</Base>

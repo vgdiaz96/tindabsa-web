@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+const posts = Object.values(import.meta.glob('./*.md', { eager: true }))
+  .sort((a, b) => new Date(b.frontmatter.fechaISO) - new Date(a.frontmatter.fechaISO));
+---
+<Base title="Blog — guías de limpieza institucional y químicos" description="Guías prácticas de TINDAB: dosificación de cloro, limpieza para hoteles y lavanderías, y novedades de la industria química en Ecuador.">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Inicio</a> / Blog</div>
+    <h1>Blog</h1>
+    <p style="color:var(--texto3);margin:8px 0 28px">Guías prácticas escritas por nuestros ingenieros químicos.</p>
+    <div class="grid-3">
+      {posts.map(p => (
+        <a class="card" href={p.url + '/'}>
+          <p class="kicker" style="font-size:.78rem">{p.frontmatter.fecha}</p>
+          <h3>{p.frontmatter.title}</h3>
+          <p style="color:var(--texto3);font-size:.9rem;margin-top:6px">{p.frontmatter.description}</p>
+          <span class="leer">Leer →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,25 @@
+BORRADOR OCULTO — NO PUBLICAR HASTA TENER PERMISOS DE QUÍMICOS FISCALIZADOS (estimado 3-6 meses)
+
+Para publicar: renombrar este archivo a `src/pages/quimicos-industriales/acido-clorhidrico.astro`
+(quitar la extensión .txt) y agregar el enlace en quimicos-industriales.astro y en el menú si se desea.
+
+---
+import Base from '../../layouts/Base.astro';
+const WA = 'https://wa.me/593969361746?text=Hola%20TINDAB,%20quiero%20cotizar%20%C3%A1cido%20clorh%C3%ADdrico';
+---
+<Base title="Ácido clorhídrico industrial" description="Distribución de ácido clorhídrico para la industria en Ecuador. Cotiza por volumen con TINDAB.">
+  <div class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="kicker">Distribución de químicos industriales</p>
+        <h1>Ácido clorhídrico industrial</h1>
+        <p class="lead">[Completar: presentaciones, concentraciones y aplicaciones al obtener el permiso]</p>
+        <div class="cta-row">
+          <a href="/contacto/" class="btn">Cotizar por volumen</a>
+          <a href={WA} class="btn-wa" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div class="ph">Foto pendiente</div>
+    </div>
+  </div>
+</Base>

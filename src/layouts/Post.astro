@@ -1,0 +1,30 @@
+---
+import Base from './Base.astro';
+const { frontmatter } = Astro.props;
+---
+<Base title={frontmatter.title} description={frontmatter.description}>
+  <div class="container" style="max-width:720px">
+    <div class="breadcrumb"><a href="/">Inicio</a> / <a href="/blog/">Blog</a></div>
+    <p class="kicker">{frontmatter.fecha}</p>
+    <h1 style="margin-bottom:20px">{frontmatter.title}</h1>
+    <article class="post">
+      <slot />
+    </article>
+    <div class="banner" style="margin-top:40px">
+      <div>
+        <strong style="font-size:1.05rem">¿Necesitas asesoría para tu operación?</strong>
+        <p>Nuestros ingenieros químicos te orientan sin costo con tu cotización.</p>
+      </div>
+      <a href="/contacto/" class="btn-blanco">Cotizar</a>
+    </div>
+  </div>
+  <style>
+    .post :global(h2) { margin: 28px 0 10px; font-size: 1.25rem; }
+    .post :global(p) { color: var(--texto2); margin-bottom: 14px; }
+    .post :global(ul), .post :global(ol) { color: var(--texto2); margin: 0 0 14px 22px; }
+    .post :global(li) { margin-bottom: 6px; }
+    .post :global(table) { width: 100%; border-collapse: collapse; font-size: .92rem; margin-bottom: 14px; }
+    .post :global(th) { background: var(--azul); color: #FFF; text-align: left; padding: 8px 12px; }
+    .post :global(td) { padding: 8px 12px; border: 1px solid var(--borde); color: var(--texto2); }
+  </style>
+</Base>

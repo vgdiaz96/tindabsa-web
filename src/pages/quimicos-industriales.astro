@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+const WA = 'https://wa.me/593969361746?text=Hola%20TINDAB,%20quiero%20cotizar%20hipoclorito%20de%20sodio';
+---
+<Base title="Hipoclorito de sodio al 10% (cloro) en tanques de 250 kg" description="Distribución de hipoclorito de sodio al 10% (cloro) en tanques de 250 kg para envasadores, camaroneras, distribuidores e industrias. Precios por volumen, entrega en Guayaquil, Santa Elena y Babahoyo.">
+
+  <div class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="kicker">Distribución de químicos industriales</p>
+        <h1>Hipoclorito de sodio al 10% (cloro) en tanques de 250 kg</h1>
+        <p class="lead">Calidad verificable con ficha técnica y hoja de seguridad. Para envasadores, camaroneras, distribuidores e industrias. Entrega con camión propio o retiro en planta (Durán).</p>
+        <div class="cta-row">
+          <a href="/contacto/?producto=hipoclorito" class="btn">Cotizar por volumen</a>
+          <a href={WA} class="btn-wa" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div class="ph">Foto de tanques 250 kg<br />(sesión pendiente)</div>
+    </div>
+  </div>
+
+  <section class="bloque">
+    <div class="container grid-4">
+      <div class="stat"><div class="v">10%</div><div class="l">concentración</div></div>
+      <div class="stat"><div class="v">250 kg</div><div class="l">tanque industrial</div></div>
+      <div class="stat"><div class="v">4+</div><div class="l">tanques = envío gratis</div></div>
+      <div class="stat"><div class="v">PDF</div><div class="l">ficha técnica + hoja de seguridad</div></div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:36px" id="dos-cols">
+      <div>
+        <h2 style="margin-bottom:14px">Precios por volumen</h2>
+        <table class="tabla">
+          <tr><th>Tanques por pedido</th><th>Precio</th></tr>
+          <tr><td>1 — 14</td><td><a href="/contacto/?producto=hipoclorito" style="color:var(--azul2);font-weight:600">Cotizar</a></td></tr>
+          <tr><td>15 — 25</td><td><a href="/contacto/?producto=hipoclorito" style="color:var(--azul2);font-weight:600">Cotizar</a></td></tr>
+          <tr><td>26 o más</td><td><a href="/contacto/?producto=hipoclorito" style="color:var(--azul2);font-weight:600">Cotizar</a></td></tr>
+        </table>
+        <p style="font-size:.85rem;color:var(--texto3);margin-top:10px">Entrega en Guayaquil, Santa Elena y Babahoyo con camión propio. Pedidos grandes pueden retirar en planta (Durán).</p>
+      </div>
+      <div>
+        <h2 style="margin-bottom:14px">Cómo comprar</h2>
+        <div style="display:flex;flex-direction:column;gap:14px;font-size:.95rem;color:var(--texto2)">
+          <div style="display:flex;gap:12px;align-items:flex-start"><span class="num">1</span><p><strong>Cotiza tu volumen</strong> — por formulario o WhatsApp, respondemos el mismo día.</p></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><span class="num">2</span><p><strong>Prueba la calidad</strong> — pide 1 tanque de prueba y compruébalo en tu operación.</p></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><span class="num">3</span><p><strong>Haz tu pedido grande</strong> — con tabla de precios por volumen y entrega programada.</p></div>
+        </div>
+        <h3 style="font-size:.9rem;margin:18px 0 8px">Documentación técnica</h3>
+        <div class="docs-row" style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="/fichas/hipoclorito-ficha-tecnica.pdf" class="btn-o" download>Descargar ficha técnica (PDF)</a>
+          <a href="/fichas/hipoclorito-hoja-seguridad.pdf" class="btn-o" download>Descargar hoja de seguridad (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <div class="container">
+      <div class="card">
+        <h3 style="margin-bottom:12px">¿Para quién es este producto?</h3>
+        <div class="chips">
+          <span class="chip">Envasadores de cloro</span>
+          <span class="chip">Camaroneras</span>
+          <span class="chip">Distribuidores</span>
+          <span class="chip">Potabilizadoras</span>
+          <span class="chip">Industria alimenticia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @media (max-width: 860px) { #dos-cols { grid-template-columns: 1fr !important; } }
+  </style>
+
+</Base>

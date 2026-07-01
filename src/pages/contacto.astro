@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+const WA = 'https://wa.me/593969361746?text=Hola%20TINDAB,%20quiero%20una%20cotizaci%C3%B3n';
+---
+<Base title="Contacto y cotizaciones" description="Solicita tu cotización a TINDAB S.A.: productos de limpieza ÑEQUE, hipoclorito de sodio y servicios de maquila. WhatsApp +593 96 936 1746 · ventas@tindabsa.com · Guayaquil, Ecuador.">
+
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Inicio</a> / Contacto</div>
+    <h1>Solicita tu cotización</h1>
+    <p style="color:var(--texto3);margin:8px 0 28px">Respondemos por correo y WhatsApp, de lunes a viernes de 9:00 a 16:00.</p>
+
+    <div style="display:grid;grid-template-columns:1.2fr .8fr;gap:32px" id="contacto-grid">
+      <div class="card">
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="64528ab1-6543-4abb-bdba-4ab3aa33ce44" />
+          <input type="hidden" name="subject" value="Nueva cotización — tindabsa.com" />
+          <div class="form-grid" style="margin-bottom:12px">
+            <div><label for="c-nombre">Nombre y empresa</label><input id="c-nombre" name="nombre" required /></div>
+            <div><label for="c-contacto">Correo o teléfono</label><input id="c-contacto" name="contacto" required /></div>
+          </div>
+          <div style="margin-bottom:12px">
+            <label for="c-tema">¿Qué necesitas?</label>
+            <select id="c-tema" name="tema">
+              <option value="limpieza-neque">Productos de limpieza ÑEQUE</option>
+              <option value="hipoclorito">Hipoclorito de sodio (tanques 250 kg)</option>
+              <option value="maquila">Etiquetado / envasado / combos</option>
+              <option value="a-medida">Producto a mi medida / marca propia</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <label for="c-detalle">Detalle de tu pedido</label>
+          <textarea id="c-detalle" name="detalle" rows="4" required placeholder="Producto, cantidad aproximada, ciudad de entrega…" style="margin-bottom:14px"></textarea>
+          <button type="submit" class="btn">Enviar solicitud</button>
+        </form>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card">
+          <h3>WhatsApp (más rápido)</h3>
+          <p style="color:var(--texto3);font-size:.9rem;margin:4px 0 12px">Escríbenos directo y te respondemos el mismo día.</p>
+          <a href={WA} class="btn-wa" rel="noopener">+593 96 936 1746</a>
+        </div>
+        <div class="card">
+          <h3>Otros canales</h3>
+          <p style="font-size:.92rem;color:var(--texto2);margin-top:6px">
+            <a href="mailto:ventas@tindabsa.com" style="color:var(--azul2);font-weight:600">ventas@tindabsa.com</a><br />
+            Fijo: <a href="tel:+59342980395">04 298 0395</a><br />
+            Instagram y Facebook: @tindabsa<br />
+            Guayaquil, Ecuador · 9:00–16:00
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const tema = params.get('tema') || (params.get('producto') === 'hipoclorito' ? 'hipoclorito' : params.get('producto') ? 'limpieza-neque' : null);
+    if (tema) {
+      const sel = document.getElementById('c-tema');
+      if ([...sel.options].some(o => o.value === tema)) sel.value = tema;
+    }
+    const producto = params.get('producto');
+    if (producto && producto !== 'hipoclorito') {
+      document.getElementById('c-detalle').value = `Quiero cotizar: ${producto.replaceAll('-', ' ')}. Cantidad: `;
+    }
+  </script>
+
+  <style>
+    @media (max-width: 860px) { #contacto-grid { grid-template-columns: 1fr !important; } }
+  </style>
+
+</Base>

@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+import productos from '../../data/productos.json';
+
+export function getStaticPaths() {
+  return productos.map(p => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const relacionados = productos.filter(x => x.categoria === p.categoria && x.slug !== p.slug).slice(0, 4);
+const WA = `https://wa.me/593969361746?text=${encodeURIComponent(`Hola TINDAB, quiero cotizar ${p.nombre} ÑEQUE`)}`;
+---
+<Base title={`${p.nombre} ÑEQUE — ${p.presentaciones.join(' y ')}`} description={`${p.descripcion} Disponible en ${p.presentaciones.join(' y ')}. Cotiza con TINDAB en Guayaquil, Ecuador.`}>
+
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Inicio</a> / <a href="/limpieza-neque/">Limpieza ÑEQUE</a> / {p.categoria} / <span style="color:var(--azul)">{p.nombre}</span></div>
+
+    <div style="display:grid;grid-template-columns:.9fr 1.1fr;gap:36px" class="prod-grid">
+      <div>
+        <div class="ph" style="min-height:320px">Foto principal del producto</div>
+      </div>
+      <div>
+        <span class="chip" style="margin-bottom:10px;display:inline-block">Línea ÑEQUE · {p.categoria}</span>
+        <h1>{p.nombre}</h1>
+        <p style="color:var(--texto2);margin:12px 0 18px">{p.descripcion}</p>
+
+        <h3 style="font-size:.9rem;margin-bottom:6px">Presentaciones</h3>
+        <div class="chips" style="margin-bottom:16px">
+          {p.presentaciones.map(pr => <span class="chip" style="background:#FFF;border:1.5px solid var(--azul2)">{pr}</span>)}
+          {p.variantes && p.variantes.map(v => <span class="chip">{v}</span>)}
+        </div>
+
+        <h3 style="font-size:.9rem;margin-bottom:6px">Aplicaciones</h3>
+        <p style="color:var(--texto2);font-size:.92rem;margin-bottom:18px">{p.aplicaciones.join(' · ')}</p>
+
+        <div class="cta-row" style="margin-bottom:16px">
+          <a href={`/contacto/?producto=${p.slug}`} class="btn">Solicitar cotización</a>
+          <a href={WA} class="btn-wa" rel="noopener">Consultar por WhatsApp</a>
+        </div>
+
+        <h3 style="font-size:.9rem;margin-bottom:8px">Documentación técnica</h3>
+        <div class="docs-row" style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href={`/fichas/${p.slug}-ficha-tecnica.pdf`} class="btn-o" download>Descargar ficha técnica (PDF)</a>
+          <a href={`/fichas/${p.slug}-hoja-seguridad.pdf`} class="btn-o" download>Descargar hoja de seguridad (PDF)</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="aviso" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:32px 0">
+      <p><strong>¿Lo necesitas con otra fórmula, aroma o concentración?</strong> Te lo producimos a tu medida, incluso con tu propia marca.</p>
+      <a href="/contacto/?tema=a-medida" class="btn-o" style="white-space:nowrap">Pedir a medida</a>
+    </div>
+
+    {relacionados.length > 0 && (
+      <section style="margin-bottom:24px">
+        <h2 style="font-size:1.15rem;margin-bottom:14px">También te puede interesar</h2>
+        <div class="grid-4">
+          {relacionados.map(r => (
+            <a class="pcard" href={`/limpieza-neque/${r.slug}/`}>
+              <div class="foto" style="height:100px">Foto</div>
+              <div class="info"><div class="nombre">{r.nombre}</div></div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
+
+  <style>
+    @media (max-width: 860px) { .prod-grid { grid-template-columns: 1fr !important; } }
+  </style>
+
+</Base>

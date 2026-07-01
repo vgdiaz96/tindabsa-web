@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+import productos from '../../data/productos.json';
+const categorias = [...new Set(productos.map(p => p.categoria))];
+---
+<Base title="Limpieza ÑEQUE — catálogo de productos de limpieza institucional" description="Catálogo ÑEQUE: detergentes, suavizante, desinfectantes y más en galón y caneca 20 kg. Proveedor de productos de limpieza para hoteles, hospitales y lavanderías en Guayaquil y todo Ecuador.">
+
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Inicio</a> / Limpieza ÑEQUE</div>
+    <h1>Limpieza ÑEQUE</h1>
+    <p style="color:var(--texto3);font-size:.95rem;margin:8px 0 24px">Productos de limpieza institucional para hoteles, hospitales, lavanderías y empresas. Sin mínimo de compra · envío gratis en Guayaquil desde $46.</p>
+
+    <div style="display:flex;gap:28px;align-items:flex-start" class="cat-layout">
+      <aside style="width:210px;flex-shrink:0" class="filtros">
+        <h3 style="margin-bottom:10px">Categoría</h3>
+        <div id="filtros" style="display:flex;flex-direction:column;gap:6px;font-size:.92rem">
+          <button class="filtro activo" data-cat="todas" style="text-align:left;background:none;border:0;cursor:pointer;font:inherit;color:var(--azul);font-weight:600">Todas ({productos.length})</button>
+          {categorias.map(c => (
+            <button class="filtro" data-cat={c} style="text-align:left;background:none;border:0;cursor:pointer;font:inherit;color:var(--texto2)">{c} ({productos.filter(p => p.categoria === c).length})</button>
+          ))}
+        </div>
+        <div class="aviso" style="margin-top:24px">
+          <strong>¿No encuentras lo que buscas?</strong><br />
+          Te lo producimos a tu medida.
+          <a href="/contacto/?tema=a-medida" class="btn-o" style="display:block;text-align:center;margin-top:10px;font-size:.85rem">Consultar</a>
+        </div>
+      </aside>
+
+      <div style="flex:1">
+        <p id="contador" style="font-size:.85rem;color:var(--texto3);margin-bottom:14px">Mostrando {productos.length} productos</p>
+        <div class="grid-3" id="grilla">
+          {productos.map(p => (
+            <a class="pcard" href={`/limpieza-neque/${p.slug}/`} data-cat={p.categoria}>
+              <div class="foto">Foto</div>
+              <div class="info">
+                <div class="nombre">{p.nombre}</div>
+                <div class="det">{p.variantes ? p.variantes.join(' · ') : p.presentaciones.join(' · ')}</div>
+                <span style="color:var(--azul2);font-weight:600;font-size:.85rem;display:inline-block;margin-top:6px">Cotizar →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const botones = document.querySelectorAll('.filtro');
+    const tarjetas = document.querySelectorAll('#grilla .pcard');
+    const contador = document.getElementById('contador');
+    botones.forEach(b => b.addEventListener('click', () => {
+      botones.forEach(x => { x.classList.remove('activo'); x.style.color = 'var(--texto2)'; x.style.fontWeight = '400'; });
+      b.classList.add('activo'); b.style.color = 'var(--azul)'; b.style.fontWeight = '600';
+      const cat = b.dataset.cat;
+      let n = 0;
+      tarjetas.forEach(t => {
+        const ver = cat === 'todas' || t.dataset.cat === cat;
+        t.style.display = ver ? '' : 'none';
+        if (ver) n++;
+      });
+      contador.textContent = `Mostrando ${n} producto${n === 1 ? '' : 's'}`;
+    }));
+  </script>
+
+  <style>
+    @media (max-width: 860px) {
+      .cat-layout { flex-direction: column; }
+      .filtros { width: 100% !important; }
+    }
+  </style>
+
+</Base>

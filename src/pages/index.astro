@@ -1,0 +1,102 @@
+---
+import Base from '../layouts/Base.astro';
+import productos from '../data/productos.json';
+const top = productos.filter(p => p.top);
+const WA = 'https://wa.me/593969361746?text=Hola%20TINDAB,%20quiero%20una%20cotizaci%C3%B3n';
+---
+<Base title="Químicos y productos de limpieza para tu industria" description="TINDAB S.A. — Fabricamos la línea de limpieza institucional ÑEQUE, distribuimos hipoclorito de sodio al 10% en tanques de 250 kg y brindamos servicios de etiquetado y envasado en Guayaquil, Ecuador.">
+
+  <div class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="kicker">Guayaquil, Ecuador — desde 2014</p>
+        <h1>Químicos y productos de limpieza para tu industria</h1>
+        <p class="lead">Fabricamos la línea ÑEQUE, distribuimos hipoclorito de sodio al 10% y brindamos servicios de etiquetado y envasado. Tu negocio, nuestro compromiso.</p>
+        <div class="cta-row">
+          <a href="/contacto/" class="btn">Solicitar cotización</a>
+          <a href={WA} class="btn-wa" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div class="ph">Imagen institucional<br />(foto de producto pendiente)</div>
+    </div>
+  </div>
+
+  <section class="bloque">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:24px">Tres formas de servir a tu negocio</h2>
+      <div class="grid-3">
+        <a class="card" href="/limpieza-neque/">
+          <h3>Limpieza ÑEQUE</h3>
+          <p style="color:var(--texto3);font-size:.92rem;margin-top:6px">Limpieza institucional en galón y caneca para hoteles, hospitales y lavanderías.</p>
+          <span class="leer">Ver catálogo →</span>
+        </a>
+        <a class="card" href="/quimicos-industriales/">
+          <h3>Distribución de químicos</h3>
+          <p style="color:var(--texto3);font-size:.92rem;margin-top:6px">Hipoclorito de sodio al 10% en tanques de 250 kg, con precios por volumen.</p>
+          <span class="leer">Ver producto →</span>
+        </a>
+        <a class="card" href="/maquila/">
+          <h3>Etiquetado y envasado</h3>
+          <p style="color:var(--texto3);font-size:.92rem;margin-top:6px">Armado de combos, codificación y empaque para marcas grandes.</p>
+          <span class="leer">Ver servicios →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px">
+        <h2>Los más pedidos</h2>
+        <a href="/limpieza-neque/" style="color:var(--azul2);font-weight:600;font-size:.9rem">Ver todo el catálogo →</a>
+      </div>
+      <div class="grid-5">
+        {top.map(p => (
+          <a class="pcard" href={`/limpieza-neque/${p.slug}/`}>
+            <div class="foto">Foto</div>
+            <div class="info">
+              <div class="nombre">{p.nombre}</div>
+              <div class="det">{p.presentaciones.join(' / ')}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="banner">
+      <div>
+        <strong style="font-size:1.15rem">¿Necesitas un producto a tu medida?</strong>
+        <p>Formulamos detergentes, desinfectantes y suavizantes personalizados, con tu marca o la nuestra.</p>
+      </div>
+      <a href="/contacto/?tema=a-medida" class="btn-blanco">Cuéntanos qué necesitas</a>
+    </div>
+  </div>
+
+  <section class="bloque" style="padding-top:0">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:24px">Por qué TINDAB</h2>
+      <div class="grid-4" style="text-align:center">
+        <div><h3>Calidad demostrable</h3><p style="color:var(--texto3);font-size:.88rem">Fichas técnicas y hojas de seguridad disponibles</p></div>
+        <div><h3>Entregas rápidas</h3><p style="color:var(--texto3);font-size:.88rem">Envío gratis en Guayaquil desde $46</p></div>
+        <div><h3>Asesoría incluida</h3><p style="color:var(--texto3);font-size:.88rem">Uso y dosificación por ingenieros químicos</p></div>
+        <div><h3>Planta propia</h3><p style="color:var(--texto3);font-size:.88rem">Producción y bodega en Guayaquil</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:32px">
+      <div>
+        <h3>Solicita tu cotización hoy</h3>
+        <p style="color:var(--texto3);font-size:.9rem">Respondemos por correo y WhatsApp en horario de 9:00 a 16:00.</p>
+      </div>
+      <div class="cta-row">
+        <a href="/contacto/" class="btn">Cotizar</a>
+        <a href={WA} class="btn-wa" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+</Base>
