@@ -16,7 +16,25 @@ const WA = `https://wa.me/593969361746?text=${encodeURIComponent(`Hola TINDAB, q
 
     <div style="display:grid;grid-template-columns:.9fr 1.1fr;gap:36px" class="prod-grid">
       <div>
-        <div class="ph" style="min-height:320px">Foto principal del producto</div>
+        {p.fotos && p.fotos.length > 0 ? (
+          <div class="galeria">
+            <div class="galeria-main">
+              <img id="foto-principal" src={p.fotos[0]} alt={`${p.nombre} ÑEQUE`} width="1200" height="1200" />
+            </div>
+            {p.fotos.length > 1 && (
+              <div class="galeria-thumbs">
+                {p.fotos.map((f, i) => (
+                  <button type="button" class={`thumb${i === 0 ? ' activo' : ''}`} data-src={f} aria-label={i === 0 ? 'Ver caneca 20 kg' : 'Ver galón'}>
+                    <img src={f} alt="" width="120" height="120" loading="lazy" />
+                    <span>{i === 0 ? 'Caneca 20 kg' : 'Galón'}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div class="ph" style="min-height:320px">Foto principal del producto</div>
+        )}
       </div>
       <div>
         <span class="chip" style="margin-bottom:10px;display:inline-block">Línea ÑEQUE · {p.categoria}</span>
@@ -56,7 +74,7 @@ const WA = `https://wa.me/593969361746?text=${encodeURIComponent(`Hola TINDAB, q
         <div class="grid-4">
           {relacionados.map(r => (
             <a class="pcard" href={`/limpieza-neque/${r.slug}/`}>
-              <div class="foto" style="height:100px">Foto</div>
+              <div class="foto" style="height:130px">{r.fotos ? <img src={r.fotos[0]} alt={`${r.nombre} ÑEQUE`} loading="lazy" width="400" height="400" /> : 'Foto'}</div>
               <div class="info"><div class="nombre">{r.nombre}</div></div>
             </a>
           ))}
@@ -64,6 +82,15 @@ const WA = `https://wa.me/593969361746?text=${encodeURIComponent(`Hola TINDAB, q
       </section>
     )}
   </div>
+
+  <script>
+    const principal = document.getElementById('foto-principal');
+    document.querySelectorAll('.galeria-thumbs .thumb').forEach(b => b.addEventListener('click', () => {
+      principal.src = b.dataset.src;
+      document.querySelectorAll('.galeria-thumbs .thumb').forEach(x => x.classList.remove('activo'));
+      b.classList.add('activo');
+    }));
+  </script>
 
   <style>
     @media (max-width: 860px) { .prod-grid { grid-template-columns: 1fr !important; } }

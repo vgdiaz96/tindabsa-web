@@ -31,7 +31,7 @@ const categorias = [...new Set(productos.map(p => p.categoria))];
         <div class="grid-3" id="grilla">
           {productos.map(p => (
             <a class="pcard" href={`/limpieza-neque/${p.slug}/`} data-cat={p.categoria}>
-              <div class="foto">Foto</div>
+              <div class="foto">{p.fotos ? <img src={p.fotos[0]} alt={`${p.nombre} ÑEQUE`} loading="lazy" width="400" height="400" /> : 'Foto'}</div>
               <div class="info">
                 <div class="nombre">{p.nombre}</div>
                 <div class="det">{p.variantes ? p.variantes.join(' · ') : p.presentaciones.join(' · ')}</div>
