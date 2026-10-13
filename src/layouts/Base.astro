@@ -1,7 +1,16 @@
 ---
 import '../styles/global.css';
 const { title, description = 'TINDAB S.A. — Químicos y productos de limpieza institucional en Guayaquil, Ecuador. Limpieza ÑEQUE, hipoclorito de sodio al 10% y servicios de maquila.' } = Astro.props;
-const WA = 'https://wa.me/593969361746';
+const WA = `https://wa.me/593969361746?text=${encodeURIComponent('Hola TINDAB, quiero información.\nEmpresa o negocio: \nCiudad: \nProducto y cantidad al mes: ')}`;
+// Google Analytics 4: pega aquí tu ID de medición (formato G-XXXXXXXXXX). Vacío = sin analítica.
+const GA_ID = '';
+const soluciones = [
+  { href: '/soluciones/productos-de-limpieza-para-hoteles/', t: 'Hoteles' },
+  { href: '/soluciones/productos-para-lavanderias/', t: 'Lavanderías' },
+  { href: '/soluciones/productos-de-limpieza-para-hospitales-y-clinicas/', t: 'Hospitales y clínicas' },
+  { href: '/soluciones/proveedor-para-empresas-de-limpieza/', t: 'Empresas de limpieza' },
+  { href: '/soluciones/fabricacion-de-productos-de-limpieza-con-tu-marca/', t: 'Fabricación con tu marca' },
+];
 const ruta = Astro.url.pathname;
 const activo = (p) => ruta.startsWith(p) ? 'activo' : '';
 ---
@@ -29,6 +38,32 @@ const activo = (p) => ruta.startsWith(p) ? 'activo' : '';
     "address": { "@type": "PostalAddress", "addressLocality": "Guayaquil", "addressCountry": "EC" },
     "openingHours": "Mo-Fr 09:00-16:00"
   })} />
+  <slot name="head" />
+  {GA_ID && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+      <script is:inline define:vars={{ GA_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', GA_ID);
+      </script>
+    </>
+  )}
+  <script is:inline>
+    // Medición de conversiones: clics a WhatsApp, llamadas y correos (y leads del cotizador).
+    window.tdbTrack = function (nombre, params) { if (window.gtag) window.gtag('event', nombre, params || {}); };
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a) return;
+      var h = a.getAttribute('href') || '';
+      var donde = { pagina: location.pathname };
+      if (h.indexOf('wa.me') > -1) window.tdbTrack('click_whatsapp', donde);
+      else if (h.indexOf('tel:') === 0) window.tdbTrack('click_llamar', donde);
+      else if (h.indexOf('mailto:') === 0) window.tdbTrack('click_correo', donde);
+    });
+  </script>
 </head>
 <body>
   <header class="site">
@@ -66,6 +101,11 @@ const activo = (p) => ruta.startsWith(p) ? 'activo' : '';
         <p><a href={WA}>+593 96 936 1746 (WhatsApp)</a></p>
         <p><a href="tel:+59342980395">04 298 0395</a></p>
         <p>Lunes a viernes, 9:00–16:00</p>
+      </div>
+      <div>
+        <p><strong style="color:#FFF">Soluciones</strong></p>
+        {soluciones.map(x => <p><a href={x.href}>{x.t}</a></p>)}
+        <p><a href="/maquila/">Etiquetado y envasado</a></p>
       </div>
       <div>
         <p><strong style="color:#FFF">Síguenos</strong></p>

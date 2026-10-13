@@ -7,7 +7,7 @@ export function getStaticPaths() {
 }
 const { p } = Astro.props;
 const relacionados = productos.filter(x => x.categoria === p.categoria && x.slug !== p.slug).slice(0, 4);
-const WA = `https://wa.me/593969361746?text=${encodeURIComponent(`Hola TINDAB, quiero cotizar ${p.nombre} ÑEQUE`)}`;
+const WA = `https://wa.me/593969361746?text=${encodeURIComponent(`Hola TINDAB, quiero cotizar ${p.nombre} ÑEQUE.\nEmpresa o negocio: \nCiudad: \nCantidad al mes: `)}`;
 ---
 <Base title={`${p.nombre} ÑEQUE — ${p.presentaciones.join(' y ')}`} description={`${p.descripcion} Disponible en ${p.presentaciones.join(' y ')}. Cotiza con TINDAB en Guayaquil, Ecuador.`}>
 

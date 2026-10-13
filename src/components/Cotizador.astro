@@ -1,0 +1,450 @@
+---
+/*
+  Cotizador por pasos con calificación automática de leads (A / B / C).
+  - A = prioridad (compra recurrente mensual, volumen alto o proyecto listo)
+  - B = normal
+  - C = baja prioridad (uso personal, compra única pequeña, maquila mínima, fabricación de menos de 100 kg)
+  Envía a Web3Forms (correo ventas@) con la clase en el asunto y ofrece seguir por WhatsApp
+  con un resumen y un código de referencia. Sin precios públicos.
+*/
+import productos from '../data/productos.json';
+
+const { tema = '', segmento = '', producto = '' } = Astro.props;
+
+const ACCESS_KEY = '64528ab1-6543-4abb-bdba-4ab3aa33ce44';
+
+const temas = [
+  { v: 'limpieza-neque', t: 'Productos de limpieza ÑEQUE', d: 'Galón, caneca de 20 kg y sacos' },
+  { v: 'hipoclorito', t: 'Hipoclorito de sodio al 10%', d: 'Tanques de 250 kg' },
+  { v: 'maquila', t: 'Etiquetado, envasado o combos', d: 'Servicio para tu producto' },
+  { v: 'a-medida', t: 'Fabricar un producto con mi marca', d: 'Marca blanca o fórmula a medida' },
+];
+
+const segmentos = [
+  { v: 'hotel', t: 'Hotel, motel u hospedaje' },
+  { v: 'salud', t: 'Hospital, clínica o laboratorio' },
+  { v: 'lavanderia', t: 'Lavandería' },
+  { v: 'limpieza', t: 'Empresa de servicios de limpieza' },
+  { v: 'restaurante', t: 'Restaurante o cocina industrial' },
+  { v: 'empresa', t: 'Empresa, oficina o industria' },
+  { v: 'camaronera', t: 'Camaronera o acuacultura' },
+  { v: 'agua', t: 'Piscinas o tratamiento de agua' },
+  { v: 'revendedor', t: 'Distribuidor o revendedor' },
+  { v: 'publica', t: 'Institución pública' },
+  { v: 'emprendedor', t: 'Emprendimiento / marca propia' },
+  { v: 'hogar', t: 'Uso personal o del hogar' },
+];
+
+const ciudades = ['Guayaquil', 'Durán', 'Samborondón', 'Daule', 'Santa Elena', 'Babahoyo', 'Otra ciudad'];
+const pilotos = ['Detergente líquido', 'Suavizante', 'Desinfectante', 'Detergente clorado', 'Lavavajillas', 'Jabón líquido de manos', 'Otro'];
+const servicios = ['Etiquetado', 'Armado de combos o packs', 'Termoencogido', 'Códigos de barra', 'Envasado, llenado y sellado', 'Codificación inkjet'];
+---
+<form id="cotizador" class="cot card" novalidate
+  data-tema={tema} data-segmento={segmento} data-producto={producto} data-key={ACCESS_KEY}>
+
+  <div class="cot-progreso" aria-hidden="true">
+    <span class="activo"></span><span></span><span></span><span></span>
+  </div>
+  <p class="cot-paso-txt">Paso <b id="cot-n">1</b> de 4</p>
+
+  <!-- PASO 1 -->
+  <fieldset class="cot-paso" data-paso="1">
+    <legend>¿Qué necesitas?</legend>
+    <div class="cot-opciones cot-2">
+      {temas.map(o => (
+        <label class="cot-op">
+          <input type="radio" name="tema" value={o.v} required />
+          <span><strong>{o.t}</strong><small>{o.d}</small></span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <!-- PASO 2 -->
+  <fieldset class="cot-paso" data-paso="2" hidden>
+    <legend>¿Qué tipo de negocio tienes?</legend>
+    <div class="cot-opciones cot-2 cot-compacta">
+      {segmentos.map(o => (
+        <label class="cot-op">
+          <input type="radio" name="segmento" value={o.v} required />
+          <span><strong>{o.t}</strong></span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <!-- PASO 3 -->
+  <fieldset class="cot-paso" data-paso="3" hidden>
+    <legend>Cuéntanos tu pedido</legend>
+
+    <!-- ÑEQUE -->
+    <div class="cot-bloque" data-para="limpieza-neque">
+      <p class="cot-label">¿Qué productos te interesan? <small>(elige los que quieras)</small></p>
+      <div class="cot-chips">
+        {productos.map(p => (
+          <label class="cot-chip"><input type="checkbox" name="productos" value={p.nombre} data-slug={p.slug} /><span>{p.nombre}</span></label>
+        ))}
+      </div>
+
+      <p class="cot-label">¿Cada cuánto comprarías?</p>
+      <div class="cot-opciones cot-3">
+        <label class="cot-op"><input type="radio" name="frecuencia" value="mensual" required /><span><strong>Cada mes</strong><small>Compra fija</small></span></label>
+        <label class="cot-op"><input type="radio" name="frecuencia" value="bimestral" required /><span><strong>Cada 2 o 3 meses</strong></span></label>
+        <label class="cot-op"><input type="radio" name="frecuencia" value="unica" required /><span><strong>Una sola vez</strong><small>Quiero probar</small></span></label>
+      </div>
+
+      <p class="cot-label">¿Cuánto por pedido, aproximadamente?</p>
+      <div class="cot-opciones cot-2">
+        <label class="cot-op"><input type="radio" name="volumen" value="galones" required /><span><strong>1 a 3 galones</strong></span></label>
+        <label class="cot-op"><input type="radio" name="volumen" value="1-3 canecas" required /><span><strong>1 a 3 canecas</strong><small>de 20 kg</small></span></label>
+        <label class="cot-op"><input type="radio" name="volumen" value="4-10 canecas" required /><span><strong>4 a 10 canecas</strong></span></label>
+        <label class="cot-op"><input type="radio" name="volumen" value="10+ canecas" required /><span><strong>Más de 10 canecas</strong></span></label>
+      </div>
+
+      <label for="cot-proveedor" class="cot-label">¿A quién le compras hoy? <small>(opcional)</small></label>
+      <input id="cot-proveedor" name="proveedor_actual" placeholder="Ej.: distribuidor, supermercado, otra marca…" />
+    </div>
+
+    <!-- HIPOCLORITO -->
+    <div class="cot-bloque" data-para="hipoclorito">
+      <p class="cot-label">¿Cuántos tanques de 250 kg necesitas al mes?</p>
+      <div class="cot-opciones cot-2">
+        <label class="cot-op"><input type="radio" name="tanques" value="1" required /><span><strong>1 tanque</strong><small>Para probar</small></span></label>
+        <label class="cot-op"><input type="radio" name="tanques" value="2-4" required /><span><strong>2 a 4 tanques</strong></span></label>
+        <label class="cot-op"><input type="radio" name="tanques" value="5-14" required /><span><strong>5 a 14 tanques</strong></span></label>
+        <label class="cot-op"><input type="radio" name="tanques" value="15+" required /><span><strong>15 o más</strong></span></label>
+      </div>
+      <p class="cot-label">¿Cada cuánto comprarías?</p>
+      <div class="cot-opciones cot-3">
+        <label class="cot-op"><input type="radio" name="frecuencia_cloro" value="mensual" required /><span><strong>Cada mes</strong></span></label>
+        <label class="cot-op"><input type="radio" name="frecuencia_cloro" value="ocasional" required /><span><strong>De vez en cuando</strong></span></label>
+        <label class="cot-op"><input type="radio" name="frecuencia_cloro" value="unica" required /><span><strong>Una sola vez</strong></span></label>
+      </div>
+      <p class="cot-label">Entrega</p>
+      <div class="cot-opciones cot-2">
+        <label class="cot-op"><input type="radio" name="entrega" value="entrega" required /><span><strong>Que me lo entreguen</strong></span></label>
+        <label class="cot-op"><input type="radio" name="entrega" value="retiro" required /><span><strong>Retiro en planta</strong><small>Durán</small></span></label>
+      </div>
+    </div>
+
+    <!-- MAQUILA -->
+    <div class="cot-bloque" data-para="maquila">
+      <p class="cot-label">¿Qué servicio necesitas? <small>(elige los que apliquen)</small></p>
+      <div class="cot-chips">
+        {servicios.map(s => (
+          <label class="cot-chip"><input type="checkbox" name="servicios" value={s} /><span>{s}</span></label>
+        ))}
+      </div>
+      <p class="cot-label">¿Cuántas unidades son?</p>
+      <div class="cot-opciones cot-2">
+        <label class="cot-op"><input type="radio" name="unidades" value="<1000" required /><span><strong>Menos de 1.000</strong></span></label>
+        <label class="cot-op"><input type="radio" name="unidades" value="1000-10000" required /><span><strong>1.000 a 10.000</strong></span></label>
+        <label class="cot-op"><input type="radio" name="unidades" value="10000-50000" required /><span><strong>10.000 a 50.000</strong></span></label>
+        <label class="cot-op"><input type="radio" name="unidades" value="50000+" required /><span><strong>Más de 50.000</strong></span></label>
+      </div>
+      <p class="cot-label">¿Es un trabajo único o recurrente?</p>
+      <div class="cot-opciones cot-2">
+        <label class="cot-op"><input type="radio" name="tipo_trabajo" value="unico" required /><span><strong>Proyecto único</strong></span></label>
+        <label class="cot-op"><input type="radio" name="tipo_trabajo" value="recurrente" required /><span><strong>Recurrente</strong><small>Cada mes o por temporada</small></span></label>
+      </div>
+      <p class="cot-label">¿El producto y el material de empaque ya están listos?</p>
+      <div class="cot-opciones cot-3">
+        <label class="cot-op"><input type="radio" name="material" value="si" required /><span><strong>Sí</strong></span></label>
+        <label class="cot-op"><input type="radio" name="material" value="parcial" required /><span><strong>En parte</strong></span></label>
+        <label class="cot-op"><input type="radio" name="material" value="no" required /><span><strong>Todavía no</strong></span></label>
+      </div>
+    </div>
+
+    <!-- A MEDIDA / MARCA PROPIA -->
+    <div class="cot-bloque" data-para="a-medida">
+      <div class="aviso cot-aviso">
+        <strong>Cómo trabajamos:</strong> formulamos y fabricamos tu producto y te lo entregamos a granel,
+        o lo envasamos y etiquetamos si nos das el envase, la tapa y la etiqueta impresa.
+        La marca y su registro sanitario ARCSA son responsabilidad de la marca.
+        Para darte una cotización real empezamos con <strong>un solo producto piloto</strong>.
+      </div>
+      <p class="cot-label">¿Con qué marca?</p>
+      <div class="cot-opciones cot-2">
+        <label class="cot-op"><input type="radio" name="marca" value="propia" required /><span><strong>Con mi propia marca</strong></span></label>
+        <label class="cot-op"><input type="radio" name="marca" value="neque" required /><span><strong>Marca ÑEQUE</strong><small>Fórmula especial para mi negocio</small></span></label>
+      </div>
+      <label for="cot-piloto" class="cot-label">Producto piloto</label>
+      <select id="cot-piloto" name="piloto" required>
+        <option value="">Elige uno…</option>
+        {pilotos.map(p => <option value={p}>{p}</option>)}
+      </select>
+      <p class="cot-label">Cantidad de tu primer pedido</p>
+      <div class="cot-opciones cot-2">
+        <label class="cot-op"><input type="radio" name="cantidad_piloto" value="<100kg" required /><span><strong>Menos de 100 kg</strong></span></label>
+        <label class="cot-op"><input type="radio" name="cantidad_piloto" value="100-500kg" required /><span><strong>100 a 500 kg</strong></span></label>
+        <label class="cot-op"><input type="radio" name="cantidad_piloto" value="500-1000kg" required /><span><strong>500 a 1.000 kg</strong></span></label>
+        <label class="cot-op"><input type="radio" name="cantidad_piloto" value="1000kg+" required /><span><strong>Más de 1.000 kg</strong></span></label>
+      </div>
+      <p class="cot-label">¿Cómo lo quieres recibir?</p>
+      <div class="cot-opciones cot-2">
+        <label class="cot-op"><input type="radio" name="entrega_medida" value="granel" required /><span><strong>A granel</strong><small>Yo me encargo del envase y la marca</small></span></label>
+        <label class="cot-op"><input type="radio" name="entrega_medida" value="envasado" required /><span><strong>Envasado y etiquetado</strong><small>Con mi envase y mi etiqueta</small></span></label>
+      </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- PASO 4 -->
+  <fieldset class="cot-paso" data-paso="4" hidden>
+    <legend>¿A dónde te enviamos la cotización?</legend>
+    <div class="form-grid">
+      <div><label for="cot-nombre">Tu nombre</label><input id="cot-nombre" name="nombre" autocomplete="name" required /></div>
+      <div><label for="cot-empresa">Empresa o negocio</label><input id="cot-empresa" name="empresa" autocomplete="organization" required /></div>
+      <div><label for="cot-wa">WhatsApp</label><input id="cot-wa" name="whatsapp" type="tel" autocomplete="tel" placeholder="09…" required pattern="[0-9+ ]{9,15}" /></div>
+      <div><label for="cot-correo">Correo <small>(opcional)</small></label><input id="cot-correo" name="correo" type="email" autocomplete="email" /></div>
+      <div>
+        <label for="cot-ciudad">Ciudad de entrega</label>
+        <select id="cot-ciudad" name="ciudad" required>
+          <option value="">Elige…</option>
+          {ciudades.map(c => <option value={c}>{c}</option>)}
+        </select>
+      </div>
+      <div><label for="cot-ruc">RUC <small>(opcional, para la factura)</small></label><input id="cot-ruc" name="ruc" inputmode="numeric" /></div>
+    </div>
+    <p class="cot-label">¿Para cuándo lo necesitas?</p>
+    <div class="cot-opciones cot-3">
+      <label class="cot-op"><input type="radio" name="urgencia" value="esta-semana" required /><span><strong>Esta semana</strong></span></label>
+      <label class="cot-op"><input type="radio" name="urgencia" value="este-mes" required /><span><strong>Este mes</strong></span></label>
+      <label class="cot-op"><input type="radio" name="urgencia" value="comparando" required /><span><strong>Estoy comparando</strong><small>Sin fecha aún</small></span></label>
+    </div>
+    <label for="cot-coment" class="cot-label">Algo más que debamos saber <small>(opcional)</small></label>
+    <textarea id="cot-coment" name="comentario" rows="3"></textarea>
+    <input type="checkbox" name="botcheck" class="cot-oculto" tabindex="-1" autocomplete="off" />
+    <p class="cot-privacidad">Usamos tus datos solo para responder esta solicitud. No compartimos tu información.</p>
+  </fieldset>
+
+  <p class="cot-error" role="alert" hidden></p>
+
+  <div class="cot-nav">
+    <button type="button" class="btn-o" id="cot-atras" hidden>Atrás</button>
+    <button type="button" class="btn" id="cot-sig">Siguiente</button>
+    <button type="submit" class="btn" id="cot-enviar" hidden>Enviar solicitud</button>
+  </div>
+
+  <!-- RESULTADO -->
+  <div class="cot-resultado" hidden>
+    <h3 class="cot-res-titulo"></h3>
+    <p class="cot-res-texto"></p>
+    <div class="cot-res-extra"></div>
+    <div class="cta-row" style="margin-top:14px">
+      <a class="btn-wa cot-res-wa" href="#" rel="noopener" target="_blank">Enviar resumen por WhatsApp</a>
+    </div>
+    <p class="cot-ref">Código de tu solicitud: <b></b></p>
+  </div>
+</form>
+
+<script>
+  const WA_NUM = '593969361746';
+  const form = document.getElementById('cotizador');
+  if (form) {
+    const pasos = [...form.querySelectorAll('.cot-paso')];
+    const barras = [...form.querySelectorAll('.cot-progreso span')];
+    const btnSig = form.querySelector('#cot-sig');
+    const btnAtras = form.querySelector('#cot-atras');
+    const btnEnviar = form.querySelector('#cot-enviar');
+    const errorEl = form.querySelector('.cot-error');
+    const nEl = form.querySelector('#cot-n');
+    let actual = 1;
+
+    const val = (n) => { const el = form.querySelector(`[name="${n}"]:checked`) || form.querySelector(`select[name="${n}"], input[name="${n}"]:not([type=radio]):not([type=checkbox]), textarea[name="${n}"]`); return el ? el.value.trim() : ''; };
+    const multi = (n) => [...form.querySelectorAll(`[name="${n}"]:checked`)].map(x => x.value);
+    const etiqueta = (n) => { const el = form.querySelector(`[name="${n}"]:checked`); return el ? el.closest('label').querySelector('strong').textContent : ''; };
+
+    function bloquesVisibles() {
+      const tema = val('tema');
+      form.querySelectorAll('.cot-bloque').forEach(b => {
+        const on = b.dataset.para === tema;
+        b.hidden = !on;
+        b.querySelectorAll('input, select, textarea').forEach(i => i.disabled = !on);
+      });
+      // Hogar no necesita empresa
+      const emp = form.querySelector('#cot-empresa');
+      emp.required = val('segmento') !== 'hogar';
+    }
+
+    function mostrar(n) {
+      actual = n;
+      pasos.forEach(p => p.hidden = Number(p.dataset.paso) !== n);
+      barras.forEach((b, i) => b.classList.toggle('activo', i < n));
+      nEl.textContent = n;
+      btnAtras.hidden = n === 1;
+      btnSig.hidden = n === 4;
+      btnEnviar.hidden = n !== 4;
+      errorEl.hidden = true;
+      bloquesVisibles();
+    }
+
+    function valido(n) {
+      const paso = pasos[n - 1];
+      const campos = [...paso.querySelectorAll('input, select, textarea')].filter(i => !i.disabled && i.required);
+      const nombres = new Set();
+      for (const c of campos) {
+        if (c.type === 'radio') {
+          if (nombres.has(c.name)) continue;
+          nombres.add(c.name);
+          if (!paso.querySelector(`[name="${c.name}"]:checked`)) return false;
+        } else if (!c.checkValidity()) return false;
+      }
+      return true;
+    }
+
+    function error(msg) { errorEl.textContent = msg; errorEl.hidden = false; }
+
+    btnSig.addEventListener('click', () => {
+      if (!valido(actual)) return error('Completa las opciones de este paso para continuar.');
+      mostrar(actual + 1);
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    btnAtras.addEventListener('click', () => mostrar(actual - 1));
+    form.addEventListener('change', (e) => {
+      bloquesVisibles();
+      // Avance automático en pasos de una sola elección
+      if (e.target.type === 'radio' && (e.target.name === 'tema' || e.target.name === 'segmento')) {
+        setTimeout(() => mostrar(actual + 1), 180);
+      }
+    });
+
+    // ---------- Calificación ----------
+    function calificar() {
+      const tema = val('tema'), seg = val('segmento');
+      if (seg === 'hogar') return 'C';
+      if (tema === 'limpieza-neque') {
+        if (val('frecuencia') === 'mensual') return 'A';
+        if (val('frecuencia') === 'unica' && val('volumen') === 'galones') return 'C';
+        return 'B';
+      }
+      if (tema === 'hipoclorito') {
+        if (val('frecuencia_cloro') === 'mensual' || ['5-14', '15+'].includes(val('tanques'))) return 'A';
+        return 'B';
+      }
+      if (tema === 'maquila') {
+        if (val('tipo_trabajo') === 'recurrente' || ['10000-50000', '50000+'].includes(val('unidades'))) return 'A';
+        if (val('unidades') === '<1000' && val('material') === 'no') return 'C';
+        return 'B';
+      }
+      if (tema === 'a-medida') {
+        const cant = val('cantidad_piloto');
+        if (cant === '<100kg') return 'C';
+        if (val('marca') === 'neque' || ['500-1000kg', '1000kg+'].includes(cant)) return 'A';
+        return 'B';
+      }
+      return 'B';
+    }
+
+    function resumen() {
+      const tema = val('tema');
+      const l = [];
+      l.push(`• Necesito: ${etiqueta('tema')}`);
+      l.push(`• Negocio: ${etiqueta('segmento')}${val('empresa') ? ' — ' + val('empresa') : ''}`);
+      if (tema === 'limpieza-neque') {
+        const ps = multi('productos');
+        if (ps.length) l.push(`• Productos: ${ps.join(', ')}`);
+        l.push(`• Compra: ${etiqueta('frecuencia')}, ${etiqueta('volumen')} por pedido`);
+      } else if (tema === 'hipoclorito') {
+        l.push(`• Tanques al mes: ${etiqueta('tanques')} (${etiqueta('frecuencia_cloro').toLowerCase()})`);
+        l.push(`• Entrega: ${etiqueta('entrega')}`);
+      } else if (tema === 'maquila') {
+        const ss = multi('servicios');
+        if (ss.length) l.push(`• Servicios: ${ss.join(', ')}`);
+        l.push(`• Unidades: ${etiqueta('unidades')} — ${etiqueta('tipo_trabajo')}`);
+        l.push(`• Material listo: ${etiqueta('material')}`);
+      } else if (tema === 'a-medida') {
+        l.push(`• Producto piloto: ${val('piloto')} (${etiqueta('marca')})`);
+        l.push(`• Primer pedido: ${etiqueta('cantidad_piloto')}`);
+        l.push(`• Entrega: ${etiqueta('entrega_medida')}`);
+      }
+      l.push(`• Ciudad: ${val('ciudad')} · Para: ${etiqueta('urgencia')}`);
+      return l;
+    }
+
+    const codigos = { 'limpieza-neque': 'NEQ', hipoclorito: 'CLO', maquila: 'MAQ', 'a-medida': 'MED' };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!valido(4)) return error('Revisa tus datos: nombre, empresa, WhatsApp, ciudad y fecha.');
+      if (form.querySelector('[name=botcheck]').checked) return;
+      const clase = calificar();
+      const tema = val('tema');
+      const ref = `${clase}-${codigos[tema] || 'GEN'}-${Date.now().toString(36).slice(-5).toUpperCase()}`;
+      const lineas = resumen();
+      const emoji = { A: '🔥', B: '🟡', C: '⚪' }[clase];
+      const quien = val('empresa') || val('nombre');
+
+      btnEnviar.disabled = true; btnEnviar.textContent = 'Enviando…';
+
+      const datos = {
+        access_key: form.dataset.key,
+        subject: `${emoji} LEAD ${clase} · ${etiqueta('tema')} · ${etiqueta('segmento')} · ${quien}`,
+        from_name: 'Cotizador tindabsa.com',
+        clasificacion: `${clase} (${{ A: 'prioridad', B: 'normal', C: 'baja prioridad' }[clase]})`,
+        referencia: ref,
+        resumen: lineas.join('\n'),
+        nombre: val('nombre'), empresa: val('empresa'), whatsapp: val('whatsapp'), correo: val('correo'),
+        ruc: val('ruc'), ciudad: val('ciudad'), comentario: val('comentario'),
+        pagina: location.pathname,
+      };
+      if (val('correo')) datos.replyto = val('correo');
+
+      let ok = false;
+      try {
+        const r = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(datos),
+        });
+        ok = (await r.json()).success === true;
+      } catch (_) { ok = false; }
+
+      if (window.tdbTrack) window.tdbTrack('generate_lead', { lead_class: clase, tema, segmento: val('segmento') });
+
+      const msg = `Hola TINDAB, envié una solicitud desde la web (Ref. ${ref}).\n${lineas.join('\n')}\n• Nombre: ${val('nombre')}`;
+      const wa = form.querySelector('.cot-res-wa');
+      wa.href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`;
+
+      const titulo = form.querySelector('.cot-res-titulo');
+      const texto = form.querySelector('.cot-res-texto');
+      const extra = form.querySelector('.cot-res-extra');
+      form.querySelector('.cot-ref b').textContent = ref;
+
+      if (!ok) {
+        titulo.textContent = 'No pudimos enviar tu solicitud por la web';
+        texto.textContent = 'Envíanos el resumen por WhatsApp con el botón de abajo y te atendemos igual.';
+      } else if (clase === 'A') {
+        titulo.textContent = '¡Listo! Tu solicitud tiene prioridad';
+        texto.textContent = 'Te escribiremos lo más pronto posible. Si quieres adelantarte, envíanos el resumen por WhatsApp.';
+      } else if (clase === 'B') {
+        titulo.textContent = '¡Gracias! Recibimos tu solicitud';
+        texto.textContent = 'Te enviaremos tu cotización en 1 a 2 días hábiles. Mientras tanto puedes revisar las fichas técnicas en cada producto.';
+      } else if (val('segmento') === 'hogar') {
+        titulo.textContent = 'Gracias, recibimos tu solicitud';
+        texto.textContent = 'Nuestros productos vienen en galón y caneca, pensados para negocios. No hay pedido mínimo y, si tu compra es de $45 o más, el envío dentro de Guayaquil es gratis. Te escribiremos con la información.';
+      } else {
+        titulo.textContent = 'Gracias, recibimos tu solicitud';
+        texto.textContent = 'Te escribiremos con la información en los próximos días hábiles.';
+      }
+
+      [...pasos, form.querySelector('.cot-nav'), form.querySelector('.cot-progreso'), form.querySelector('.cot-paso-txt'), errorEl].forEach(x => x.hidden = true);
+      form.querySelector('.cot-resultado').hidden = false;
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // ---------- Preselección desde la URL o la página ----------
+    const params = new URLSearchParams(location.search);
+    let tema = form.dataset.tema || params.get('tema') || '';
+    const prod = form.dataset.producto || params.get('producto') || '';
+    if (prod === 'hipoclorito') tema = 'hipoclorito';
+    else if (prod) {
+      tema = 'limpieza-neque';
+      const chk = form.querySelector(`[name=productos][data-slug="${prod}"]`);
+      if (chk) chk.checked = true;
+    }
+    const seg = form.dataset.segmento || params.get('segmento') || '';
+    if (seg) { const s = form.querySelector(`[name=segmento][value="${seg}"]`); if (s) s.checked = true; }
+    const t = tema && form.querySelector(`[name=tema][value="${tema}"]`);
+    if (t) { t.checked = true; mostrar(seg ? 3 : 2); } else mostrar(1);
+  }
+</script>

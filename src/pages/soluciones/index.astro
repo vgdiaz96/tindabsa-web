@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import segmentos from '../../data/segmentos.json';
+---
+<Base title="Soluciones de limpieza por tipo de negocio" description="Productos de limpieza ÑEQUE, hipoclorito de sodio y servicios de etiquetado para hoteles, lavanderías, hospitales, empresas de limpieza y marcas propias en Guayaquil, Ecuador.">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Inicio</a> / Soluciones</div>
+    <h1>Soluciones por tipo de negocio</h1>
+    <p style="color:var(--texto3);margin:8px 0 28px">Elige tu tipo de negocio y te mostramos los productos y el servicio que más te convienen.</p>
+    <div class="grid-3">
+      {segmentos.map(s => (
+        <a class="card" href={`/soluciones/${s.slug}/`}>
+          <h3>{s.menu}</h3>
+          <p style="color:var(--texto3);font-size:.92rem;margin-top:6px">{s.tarjeta}</p>
+          <span class="leer">Ver solución →</span>
+        </a>
+      ))}
+      <a class="card" href="/quimicos-industriales/">
+        <h3>Camaroneras, piscinas e industrias</h3>
+        <p style="color:var(--texto3);font-size:.92rem;margin-top:6px">Hipoclorito de sodio al 10% en tanques de 250 kg.</p>
+        <span class="leer">Ver producto →</span>
+      </a>
+      <a class="card" href="/maquila/">
+        <h3>Etiquetado, sellado y termoencogido</h3>
+        <p style="color:var(--texto3);font-size:.92rem;margin-top:6px">Etiquetado, armado de combos, termoencogido y codificación.</p>
+        <span class="leer">Ver servicio →</span>
+      </a>
+    </div>
+  </div>
+</Base>

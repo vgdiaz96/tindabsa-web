@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-const WA = 'https://wa.me/593969361746?text=Hola%20TINDAB,%20tengo%20un%20proyecto%20de%20etiquetado/envasado';
+import Cotizador from '../components/Cotizador.astro';
+const WA = `https://wa.me/593969361746?text=${encodeURIComponent('Hola TINDAB, tengo un proyecto de etiquetado/envasado.\nEmpresa: \nProducto: \nCantidad de unidades: \nPlazo: ')}`;
 const servicios = [
   { t: 'Etiquetado', d: 'Manual y a volumen, con control de calidad.' },
   { t: 'Armado de combos y packs', d: 'Promociones, kits y ofertas para percha.' },
@@ -18,7 +19,7 @@ const servicios = [
       <h1>Etiquetado, envasado y armado de combos para tu marca</h1>
       <p class="lead">Tu producto llega a percha listo: etiquetamos, codificamos, armamos packs y gestionamos el material de empaque en nuestra bodega segura de Guayaquil.</p>
       <div class="cta-row" style="justify-content:center">
-        <a href="/contacto/?tema=maquila" class="btn">Cuéntanos tu proyecto</a>
+        <a href="#cotizar" class="btn">Cuéntanos tu proyecto</a>
         <a href={WA} class="btn-wa" rel="noopener">WhatsApp</a>
       </div>
     </div>
@@ -52,23 +53,8 @@ const servicios = [
 
   <section class="bloque">
     <div class="container" style="max-width:720px">
-      <div class="card">
-        <h2 style="font-size:1.2rem;margin-bottom:16px">Cuéntanos tu proyecto</h2>
-        <form action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="64528ab1-6543-4abb-bdba-4ab3aa33ce44" />
-          <input type="hidden" name="subject" value="Nuevo proyecto de maquila — tindabsa.com" />
-          <div class="form-grid" style="margin-bottom:12px">
-            <div><label for="m-nombre">Nombre y empresa</label><input id="m-nombre" name="nombre" required /></div>
-            <div><label for="m-contacto">Correo o teléfono</label><input id="m-contacto" name="contacto" required /></div>
-          </div>
-          <label for="m-detalle">¿Qué necesitas? (producto, volumen aproximado, plazo)</label>
-          <textarea id="m-detalle" name="detalle" rows="4" required style="margin-bottom:14px"></textarea>
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-            <p style="font-size:.82rem;color:var(--texto3)">Tu solicitud llega a nuestro correo; también puedes escribirnos directo por WhatsApp.</p>
-            <button type="submit" class="btn">Enviar</button>
-          </div>
-        </form>
-      </div>
+      <h2 id="cotizar" style="text-align:center;margin-bottom:16px">Cuéntanos tu proyecto</h2>
+      <Cotizador tema="maquila" />
     </div>
   </section>
 

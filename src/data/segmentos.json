@@ -1,0 +1,296 @@
+[
+  {
+    "slug": "productos-de-limpieza-para-hoteles",
+    "menu": "Hoteles",
+    "segmento": "hotel",
+    "tema": "limpieza-neque",
+    "title": "Productos de limpieza para hoteles en Guayaquil",
+    "description": "Proveedor de productos de limpieza para hoteles, moteles y hostales en Guayaquil: detergente, suavizante, desinfectante, jabón de manos y más en galón y caneca de 20 kg. Fichas técnicas y asesoría incluidas.",
+    "kicker": "Hoteles, moteles y hospedajes",
+    "h1": "Productos de limpieza para hoteles en Guayaquil",
+    "intro": "Un hotel limpia todos los días: habitaciones, baños, cocina y, sobre todo, lavandería. Con ÑEQUE compras todo a un solo fabricante, en galón y caneca de 20 kg, y bajas tu costo por uso.",
+    "tarjeta": "Lavandería, habitaciones, baños y cocina con un solo proveedor.",
+    "dolores": [
+      {
+        "t": "Sábanas y toallas que se ponen grises",
+        "d": "Detergente clorado y quitamanchas para ropa blanca, mantelería y toallas."
+      },
+      {
+        "t": "Muchos proveedores, muchas facturas",
+        "d": "Lavandería, pisos, baños, cocina y amenities en un solo pedido."
+      },
+      {
+        "t": "Costos que suben cada mes",
+        "d": "La caneca de 20 kg sale más económica por uso que las presentaciones pequeñas."
+      },
+      {
+        "t": "Documentación para auditorías",
+        "d": "Ficha técnica y hoja de seguridad de cada producto, listas para descargar."
+      }
+    ],
+    "productos": [
+      "suavizante",
+      "detergente-liquido",
+      "detergente-clorado",
+      "quitamanchas",
+      "desinfectante-de-piso",
+      "acido-para-bano",
+      "lavavajillas",
+      "jabon-liquido-de-manos"
+    ],
+    "faq": [
+      {
+        "q": "¿Tienen pedido mínimo?",
+        "a": "No. En productos de limpieza no hay pedido mínimo, y si tu compra es de $45 o más, el envío dentro de Guayaquil es gratis."
+      },
+      {
+        "q": "¿Puedo probar antes de comprar en volumen?",
+        "a": "Sí. Puedes empezar con un pedido pequeño, probarlo en tu operación y luego programar tus compras mensuales."
+      },
+      {
+        "q": "¿Me ayudan con la dosificación?",
+        "a": "Sí. La asesoría en uso y dosificación está incluida, para que rindas cada caneca."
+      },
+      {
+        "q": "¿Tienen shampoo y jabón para las habitaciones?",
+        "a": "Sí. La línea ÑEQUE incluye jabón líquido de manos, shampoo y acondicionador en galón y caneca."
+      }
+    ]
+  },
+  {
+    "slug": "productos-para-lavanderias",
+    "menu": "Lavanderías",
+    "segmento": "lavanderia",
+    "tema": "limpieza-neque",
+    "title": "Detergentes y suavizantes para lavanderías",
+    "description": "Detergente líquido, en polvo, clorado y ácido, suavizante y quitamanchas para lavanderías en Guayaquil. Caneca de 20 kg y sacos de 15 y 25 kg directo de fábrica.",
+    "kicker": "Lavanderías comerciales e industriales",
+    "h1": "Detergentes, suavizantes y químicos para lavanderías",
+    "intro": "En una lavandería, el químico es parte del costo de cada kilo lavado. ÑEQUE cubre todo el proceso: lavado, blanqueo, neutralizado, suavizado y aroma, en caneca de 20 kg y sacos de detergente en polvo.",
+    "tarjeta": "Lavado, blanqueo, neutralizado y suavizado para todo el proceso.",
+    "dolores": [
+      {
+        "t": "Costo por kilo lavado",
+        "d": "Detergente en polvo en saco de 15 y 25 kg: la opción más económica por kilo para grandes volúmenes."
+      },
+      {
+        "t": "Manchas difíciles y ropa blanca",
+        "d": "Detergente clorado que lava y blanquea en un paso, y quitamanchas para lo más difícil."
+      },
+      {
+        "t": "Residuos alcalinos en la ropa",
+        "d": "Detergente ácido para neutralizar y eliminar manchas minerales al final del lavado."
+      },
+      {
+        "t": "Ropa que sale sin aroma",
+        "d": "Suavizante concentrado y aromatizante de telas con fragancia duradera."
+      }
+    ],
+    "productos": [
+      "detergente-en-polvo",
+      "detergente-liquido",
+      "detergente-clorado",
+      "detergente-acido",
+      "suavizante",
+      "quitamanchas",
+      "aromatizante-de-telas",
+      "cloro"
+    ],
+    "faq": [
+      {
+        "q": "¿En qué presentaciones vienen?",
+        "a": "Los líquidos vienen en galón y caneca de 20 kg. El detergente en polvo viene en funda de 5 kg y sacos de 15 y 25 kg."
+      },
+      {
+        "q": "¿Me ayudan a armar el proceso de lavado?",
+        "a": "Sí. Te asesoramos en el uso y la dosificación de cada producto según el tipo de ropa y tu maquinaria."
+      },
+      {
+        "q": "¿Pueden hacerme entregas cada mes?",
+        "a": "Sí. Si compras cada mes, coordinamos tus pedidos según tu consumo."
+      },
+      {
+        "q": "¿Tienen pedido mínimo?",
+        "a": "No hay pedido mínimo, y si tu compra es de $45 o más, el envío dentro de Guayaquil es gratis."
+      }
+    ]
+  },
+  {
+    "slug": "productos-de-limpieza-para-hospitales-y-clinicas",
+    "menu": "Hospitales y clínicas",
+    "segmento": "salud",
+    "tema": "limpieza-neque",
+    "title": "Productos de limpieza y desinfección para hospitales y clínicas",
+    "description": "Desinfectante de piso, detergente clorado para ropa hospitalaria, alcohol antiséptico 70% y jabón de manos para hospitales, clínicas y laboratorios en Guayaquil. Ficha técnica y hoja de seguridad de cada producto.",
+    "kicker": "Hospitales, clínicas y laboratorios",
+    "h1": "Productos de limpieza y desinfección para hospitales y clínicas",
+    "intro": "Las áreas de salud necesitan limpieza constante y documentación en regla. ÑEQUE ofrece desinfectante de piso, detergente clorado para ropa hospitalaria, alcohol antiséptico 70% y jabón líquido de manos, con ficha técnica y hoja de seguridad de cada producto.",
+    "tarjeta": "Desinfección, ropa hospitalaria e higiene de manos con documentación.",
+    "dolores": [
+      {
+        "t": "Documentación para compras",
+        "d": "Ficha técnica y hoja de seguridad descargables en cada producto."
+      },
+      {
+        "t": "Ropa hospitalaria",
+        "d": "Detergente clorado que lava y blanquea en un solo paso."
+      },
+      {
+        "t": "Higiene de manos",
+        "d": "Jabón líquido de manos y alcohol antiséptico 70% en galón y caneca."
+      },
+      {
+        "t": "Pisos y baños",
+        "d": "Desinfectante de piso, desengrasante y ácido para baño para la limpieza diaria."
+      }
+    ],
+    "productos": [
+      "desinfectante-de-piso",
+      "detergente-clorado",
+      "alcohol-antiseptico-70",
+      "jabon-liquido-de-manos",
+      "cloro",
+      "detergente-liquido",
+      "desengrasante",
+      "acido-para-bano"
+    ],
+    "faq": [
+      {
+        "q": "¿Entregan ficha técnica y hoja de seguridad?",
+        "a": "Sí. Cada producto tiene su ficha técnica y su hoja de seguridad en PDF, que puedes descargar desde su página."
+      },
+      {
+        "q": "¿Tienen pedido mínimo?",
+        "a": "No hay pedido mínimo, y si tu compra es de $45 o más, el envío dentro de Guayaquil es gratis."
+      },
+      {
+        "q": "¿Me asesoran en la dosificación?",
+        "a": "Sí. La asesoría en uso y dosificación está incluida."
+      }
+    ]
+  },
+  {
+    "slug": "proveedor-para-empresas-de-limpieza",
+    "menu": "Empresas de limpieza",
+    "segmento": "limpieza",
+    "tema": "limpieza-neque",
+    "title": "Proveedor de productos de limpieza para empresas de limpieza",
+    "description": "Proveedor directo de fábrica para empresas de servicios de limpieza en Guayaquil: desinfectante, desengrasante, cloro, lavavajillas y jabón en caneca de 20 kg. Fichas técnicas para tus contratos.",
+    "kicker": "Empresas de servicios de limpieza",
+    "h1": "Proveedor de productos de limpieza para empresas de servicios de limpieza",
+    "intro": "Si tu empresa limpia oficinas, edificios o industrias, tu margen depende del costo de los químicos. Compra en caneca de 20 kg directo al fabricante y abastece a todos tus clientes con una sola línea de productos.",
+    "tarjeta": "Directo de fábrica en caneca para cuidar tu margen.",
+    "dolores": [
+      {
+        "t": "Margen ajustado",
+        "d": "Compra directa al fabricante, en caneca de 20 kg."
+      },
+      {
+        "t": "Clientes con necesidades distintas",
+        "d": "Pisos, baños, cocinas y manos con una sola línea de productos."
+      },
+      {
+        "t": "Personal que dosifica mal",
+        "d": "Asesoría en uso y dosificación incluida para que cada caneca rinda."
+      },
+      {
+        "t": "Requisitos de tus clientes",
+        "d": "Ficha técnica y hoja de seguridad de cada producto para presentar en tus contratos."
+      }
+    ],
+    "productos": [
+      "desinfectante-de-piso",
+      "desengrasante",
+      "acido-para-bano",
+      "cloro",
+      "lavavajillas",
+      "jabon-liquido-de-manos",
+      "detergente-liquido",
+      "alcohol-antiseptico-70"
+    ],
+    "faq": [
+      {
+        "q": "¿Puedo tener los productos con mi propia marca?",
+        "a": "Sí. Fabricamos el producto y tú aportas tu marca, el registro sanitario ARCSA, el envase y la etiqueta impresa. Revisa la sección de fabricación con tu marca."
+      },
+      {
+        "q": "¿Tienen pedido mínimo?",
+        "a": "No hay pedido mínimo, y si tu compra es de $45 o más, el envío dentro de Guayaquil es gratis."
+      },
+      {
+        "q": "¿Pueden hacerme entregas cada mes?",
+        "a": "Sí. Si compras cada mes, coordinamos tus pedidos según tu consumo."
+      }
+    ]
+  },
+  {
+    "slug": "fabricacion-de-productos-de-limpieza-con-tu-marca",
+    "menu": "Fabricación con tu marca",
+    "segmento": "",
+    "tema": "a-medida",
+    "title": "Fabricación de productos de limpieza con tu marca",
+    "description": "Fabricamos detergentes, suavizantes, desinfectantes y otros productos de limpieza a granel o con tu marca, en Guayaquil. Empieza con un producto piloto.",
+    "kicker": "Marca blanca y fórmulas a medida",
+    "h1": "Fabricamos tu producto de limpieza con tu marca",
+    "intro": "Formulamos y producimos detergentes, suavizantes, desinfectantes y otros productos de limpieza para tu marca o para tu negocio. Te los entregamos a granel o envasados y etiquetados con tus materiales.",
+    "tarjeta": "Detergentes, suavizantes y desinfectantes con tu marca.",
+    "pasos": [
+      {
+        "t": "Elige un producto piloto",
+        "d": "Empezamos con uno solo para darte una cotización real y rápida."
+      },
+      {
+        "t": "Define tu primer pedido",
+        "d": "Con la cantidad real de tu primer lote calculamos el precio por kilo."
+      },
+      {
+        "t": "Producimos tu lote",
+        "d": "A granel, o envasado y etiquetado con tu envase y tu etiqueta."
+      },
+      {
+        "t": "Lo entregamos donde digas",
+        "d": "El lote completo llega a la dirección que indiques, en el plazo acordado."
+      }
+    ],
+    "reparto": {
+      "nosotros": [
+        "Fórmula y fabricación del producto",
+        "Entrega a granel, o envasado y etiquetado con tus materiales",
+        "Asesoría en uso y dosificación",
+        "Entrega del lote completo en tu dirección"
+      ],
+      "tu": [
+        "Tu marca y su registro sanitario ARCSA",
+        "Envase, tapa y caja, si lo quieres envasado",
+        "Etiqueta ya impresa, si lo quieres etiquetado"
+      ]
+    },
+    "productos": [
+      "detergente-liquido",
+      "suavizante",
+      "desinfectante-de-piso",
+      "detergente-clorado",
+      "lavavajillas",
+      "jabon-liquido-de-manos"
+    ],
+    "productosTitulo": "Productos que podemos fabricar para ti",
+    "faq": [
+      {
+        "q": "¿Necesito registro sanitario para que me fabriquen?",
+        "a": "No para comprarnos el producto a granel. El registro sanitario ante ARCSA de tu marca es responsabilidad del titular de la marca."
+      },
+      {
+        "q": "¿Proveen envases y etiquetas?",
+        "a": "No. Si lo quieres envasado, tú nos entregas envase, tapa, caja y etiqueta impresa, y nosotros envasamos y etiquetamos. Si no, te lo entregamos a granel."
+      },
+      {
+        "q": "¿Necesito tener bodega?",
+        "a": "No. Entregamos el lote completo en la dirección que nos indiques; solo necesitas un punto de recepción."
+      },
+      {
+        "q": "¿Por qué empezar con un solo producto?",
+        "a": "Porque así te damos un precio real con la cantidad de tu primer pedido. Cuando tu marca crezca, ampliamos la línea."
+      }
+    ]
+  }
+]

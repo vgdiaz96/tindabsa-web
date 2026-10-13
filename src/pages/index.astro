@@ -1,8 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import productos from '../data/productos.json';
+import segmentos from '../data/segmentos.json';
 const top = productos.filter(p => p.top);
-const WA = 'https://wa.me/593969361746?text=Hola%20TINDAB,%20quiero%20una%20cotizaci%C3%B3n';
+const WA = `https://wa.me/593969361746?text=${encodeURIComponent('Hola TINDAB, quiero una cotización.\nEmpresa o negocio: \nCiudad: \nProducto y cantidad al mes: ')}`;
 ---
 <Base title="Químicos y productos de limpieza para tu industria" description="TINDAB S.A. — Fabricamos la línea de limpieza institucional ÑEQUE, distribuimos hipoclorito de sodio al 10% en tanques de 250 kg y brindamos servicios de etiquetado y envasado en Guayaquil, Ecuador.">
 
@@ -46,6 +47,25 @@ const WA = 'https://wa.me/593969361746?text=Hola%20TINDAB,%20quiero%20una%20coti
 
   <section class="bloque">
     <div class="container">
+      <h2 style="text-align:center;margin-bottom:6px">¿Qué tipo de negocio tienes?</h2>
+      <p style="text-align:center;color:var(--texto3);margin-bottom:22px">Te mostramos los productos que usan negocios como el tuyo.</p>
+      <div class="grid-3">
+        {segmentos.map(s => (
+          <a class="card" href={`/soluciones/${s.slug}/`} style="padding:16px">
+            <h3 style="font-size:.98rem">{s.menu}</h3>
+            <p style="color:var(--texto3);font-size:.84rem;margin-top:4px">{s.tarjeta}</p>
+          </a>
+        ))}
+        <a class="card" href="/maquila/" style="padding:16px">
+          <h3 style="font-size:.98rem">Etiquetado, sellado y termoencogido</h3>
+          <p style="color:var(--texto3);font-size:.84rem;margin-top:4px">Para marcas e importadores: etiquetado, combos, termoencogido, envasado y codificación.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <div class="container">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px">
         <h2>Los más pedidos</h2>
         <a href="/limpieza-neque/" style="color:var(--azul2);font-weight:600;font-size:.9rem">Ver todo el catálogo →</a>
@@ -79,7 +99,7 @@ const WA = 'https://wa.me/593969361746?text=Hola%20TINDAB,%20quiero%20una%20coti
       <h2 style="text-align:center;margin-bottom:24px">Por qué TINDAB</h2>
       <div class="grid-4" style="text-align:center">
         <div><h3>Calidad demostrable</h3><p style="color:var(--texto3);font-size:.88rem">Fichas técnicas y hojas de seguridad disponibles</p></div>
-        <div><h3>Entregas rápidas</h3><p style="color:var(--texto3);font-size:.88rem">Envío gratis en Guayaquil desde $46</p></div>
+        <div><h3>Entregas rápidas</h3><p style="color:var(--texto3);font-size:.88rem">Envío gratis en Guayaquil desde $45</p></div>
         <div><h3>Asesoría incluida</h3><p style="color:var(--texto3);font-size:.88rem">Uso y dosificación por ingenieros químicos</p></div>
         <div><h3>Planta propia</h3><p style="color:var(--texto3);font-size:.88rem">Producción y bodega en Guayaquil</p></div>
       </div>
