@@ -186,3 +186,20 @@ label { font-size: .85rem; font-weight: 600; color: var(--texto); display: block
 .reparto { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .reparto ul { margin: 8px 0 0 18px; color: var(--texto2); font-size: .94rem; }
 @media (max-width: 860px) { .seg-dolores, .reparto { grid-template-columns: 1fr; } }
+
+/* ---------- Mini-formulario antes de WhatsApp ---------- */
+.wag { border: 0; border-radius: 14px; padding: 0; width: min(520px, calc(100% - 24px)); max-height: calc(100vh - 32px); margin: auto; box-shadow: 0 12px 40px rgba(0,0,0,.25); }
+.wag::backdrop { background: rgba(17, 24, 39, .55); }
+.wag-form { padding: 20px 20px 22px; }
+.wag-cab { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 4px; }
+.wag-titulo { font-weight: 700; color: var(--azul); font-size: 1.1rem; }
+.wag-sub { color: var(--texto3); font-size: .86rem; }
+.wag-cerrar { background: none; border: 0; font-size: 26px; line-height: 1; color: var(--texto3); cursor: pointer; padding: 0 4px; }
+.wag-label { font-size: .86rem; font-weight: 600; color: var(--texto); margin: 14px 0 6px; display: block; }
+.wag-label small { font-weight: 400; color: var(--texto3); }
+.wag-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.wag [hidden] { display: none !important; }
+.wag-error { color: #B91C1C; font-size: .84rem; margin-top: 10px; }
+.wag-abrir { width: 100%; justify-content: center; margin-top: 16px; background: var(--wa); color: #FFF; border-color: var(--wa); padding: .75rem 1rem; cursor: pointer; font-family: inherit; font-size: 1rem; }
+.wag-abrir:hover { background: #1E9549; }
+@media (max-width: 600px) { .wag { width: 100%; max-width: 100%; margin: auto 0 0; border-radius: 14px 14px 0 0; max-height: 92vh; } }

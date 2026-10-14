@@ -1,0 +1,164 @@
+---
+/*
+  Mini-formulario antes de abrir WhatsApp.
+  Intercepta todos los enlaces a wa.me (salvo los marcados con data-wa-directo) y pide
+  3-4 datos con toques, sin escribir. Luego abre WhatsApp con el mensaje ya completo
+  y un código de referencia (A/B/C), igual que el cotizador.
+  Atributos opcionales en el enlace: data-wa-tema, data-wa-producto, data-wa-segmento.
+*/
+const necesidades = [
+  { v: 'limpieza-neque', t: 'Productos de limpieza ÑEQUE' },
+  { v: 'hipoclorito', t: 'Hipoclorito de sodio (cloro)' },
+  { v: 'maquila', t: 'Etiquetado, sellado o combos' },
+  { v: 'a-medida', t: 'Fabricar con mi marca o a granel' },
+  { v: 'cliente', t: 'Ya soy cliente: hacer un pedido' },
+  { v: 'proveedor', t: 'Soy proveedor' },
+];
+const negocios = [
+  { v: 'hotel', t: 'Hotel u hospedaje' },
+  { v: 'lavanderia', t: 'Lavandería' },
+  { v: 'salud', t: 'Hospital o clínica' },
+  { v: 'limpieza', t: 'Empresa de limpieza' },
+  { v: 'restaurante', t: 'Restaurante' },
+  { v: 'empresa', t: 'Otra empresa o industria' },
+  { v: 'revendedor', t: 'Distribuidor o revendedor' },
+  { v: 'emprendedor', t: 'Emprendimiento' },
+  { v: 'hogar', t: 'Uso personal o del hogar' },
+];
+const ciudades = ['Guayaquil', 'Samborondón', 'Daule', 'Durán', 'Santa Elena', 'Babahoyo', 'Otra ciudad'];
+---
+<dialog id="wa-gate" class="wag" aria-labelledby="wag-titulo">
+  <form method="dialog" class="wag-form" novalidate>
+    <div class="wag-cab">
+      <div>
+        <p id="wag-titulo" class="wag-titulo">Antes de abrir WhatsApp</p>
+        <p class="wag-sub">Unos toques y te atendemos más rápido.</p>
+      </div>
+      <button type="button" class="wag-cerrar" aria-label="Cerrar" data-wag-cerrar>×</button>
+    </div>
+
+    <p class="wag-label">¿Qué necesitas?</p>
+    <div class="wag-chips" data-grupo="necesidad">
+      {necesidades.map(n => (
+        <label class="cot-chip"><input type="radio" name="wag-necesidad" value={n.v} /><span>{n.t}</span></label>
+      ))}
+    </div>
+
+    <div class="wag-extra">
+      <p class="wag-label">Tu negocio</p>
+      <div class="wag-chips">
+        {negocios.map(n => (
+          <label class="cot-chip"><input type="radio" name="wag-negocio" value={n.v} /><span>{n.t}</span></label>
+        ))}
+      </div>
+
+      <p class="wag-label">Cantidad aproximada</p>
+      <div class="wag-chips" id="wag-cantidades"></div>
+
+      <label class="wag-label" for="wag-ciudad">Ciudad de entrega</label>
+      <select id="wag-ciudad">
+        <option value="">Elige…</option>
+        {ciudades.map(c => <option value={c}>{c}</option>)}
+      </select>
+    </div>
+
+    <label class="wag-label" for="wag-nombre">Tu nombre o empresa <small>(opcional)</small></label>
+    <input id="wag-nombre" autocomplete="organization" />
+
+    <p class="wag-error" role="alert" hidden>Elige una opción en cada pregunta.</p>
+    <button type="submit" class="btn-wa wag-abrir">Abrir WhatsApp</button>
+  </form>
+</dialog>
+
+<script>
+  const NUM = '593969361746';
+  const dlg = document.getElementById('wa-gate') as HTMLDialogElement | null;
+  if (dlg && typeof dlg.showModal === 'function') {
+    const form = dlg.querySelector('form')!;
+    const extra = dlg.querySelector('.wag-extra') as HTMLElement;
+    const cantBox = dlg.querySelector('#wag-cantidades') as HTMLElement;
+    const ciudad = dlg.querySelector('#wag-ciudad') as HTMLSelectElement;
+    const nombre = dlg.querySelector('#wag-nombre') as HTMLInputElement;
+    const err = dlg.querySelector('.wag-error') as HTMLElement;
+    let producto = '';
+
+    const cantidades: Record<string, [string, string][]> = {
+      'limpieza-neque': [['g', '1 a 3 galones'], ['c1', '1 a 3 canecas'], ['c4', '4 a 10 canecas'], ['c10', 'Más de 10 canecas']],
+      hipoclorito: [['t1', '1 tanque'], ['t2', '2 a 4 tanques'], ['t5', '5 a 14 tanques'], ['t15', '15 tanques o más']],
+      maquila: [['u0', 'Menos de 1.000 unidades'], ['u1', '1.000 a 10.000 unidades'], ['u10', 'Más de 10.000 unidades']],
+      'a-medida': [['k0', 'Menos de 100 kg'], ['k1', '100 a 500 kg'], ['k5', 'Más de 500 kg']],
+    };
+    const altos = ['c4', 'c10', 't5', 't15', 'u10', 'k5'];
+    const bajos = ['g', 'k0'];
+    const codigos: Record<string, string> = { 'limpieza-neque': 'NEQ', hipoclorito: 'CLO', maquila: 'MAQ', 'a-medida': 'MED' };
+
+    const sel = (n: string) => dlg.querySelector(`[name="${n}"]:checked`) as HTMLInputElement | null;
+    const texto = (i: HTMLInputElement | null) => i ? i.nextElementSibling!.textContent!.trim() : '';
+
+    function pintarCantidades() {
+      const nec = sel('wag-necesidad')?.value || '';
+      const directo = nec === 'cliente' || nec === 'proveedor';
+      extra.hidden = directo;
+      cantBox.innerHTML = '';
+      (cantidades[nec] || cantidades['limpieza-neque']).forEach(([v, t]) => {
+        const l = document.createElement('label'); l.className = 'cot-chip';
+        l.innerHTML = `<input type="radio" name="wag-cantidad" value="${v}" /><span>${t}</span>`;
+        cantBox.appendChild(l);
+      });
+    }
+
+    function abrir(e: Event, a: HTMLAnchorElement) {
+      e.preventDefault();
+      form.reset(); err.hidden = true;
+      producto = a.dataset.waProducto || '';
+      const tema = a.dataset.waTema || '';
+      const seg = a.dataset.waSegmento || '';
+      if (tema) { const r = dlg.querySelector(`[name="wag-necesidad"][value="${tema}"]`) as HTMLInputElement | null; if (r) r.checked = true; }
+      if (seg) { const r = dlg.querySelector(`[name="wag-negocio"][value="${seg}"]`) as HTMLInputElement | null; if (r) r.checked = true; }
+      pintarCantidades();
+      dlg.showModal();
+    }
+
+    document.addEventListener('click', (e) => {
+      const a = (e.target as HTMLElement).closest?.('a[href*="wa.me"]') as HTMLAnchorElement | null;
+      if (!a || a.hasAttribute('data-wa-directo')) return;
+      abrir(e, a);
+    });
+    dlg.addEventListener('change', (e) => { err.hidden = true; if ((e.target as HTMLInputElement).name === 'wag-necesidad') pintarCantidades(); });
+    dlg.querySelector('[data-wag-cerrar]')!.addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nec = sel('wag-necesidad');
+      if (!nec) { err.hidden = false; return; }
+      const v = nec.value;
+      let lineas: string[] = [];
+      let ref = '';
+      if (v === 'cliente') {
+        lineas = ['Hola TINDAB, ya soy cliente y quiero hacer un pedido.'];
+      } else if (v === 'proveedor') {
+        lineas = ['Hola TINDAB, soy proveedor y quiero ofrecerles mis productos o servicios.'];
+      } else {
+        const neg = sel('wag-negocio'), cant = sel('wag-cantidad');
+        if (!neg || !cant || !ciudad.value) { err.hidden = false; return; }
+        let clase = 'B';
+        if (neg.value === 'hogar' || bajos.includes(cant.value)) clase = 'C';
+        else if (altos.includes(cant.value)) clase = 'A';
+        ref = `${clase}-${codigos[v] || 'GEN'}-${Date.now().toString(36).slice(-5).toUpperCase()}`;
+        lineas = [
+          'Hola TINDAB, quiero una cotización.',
+          `• Necesito: ${texto(nec)}${producto ? ` (${producto})` : ''}`,
+          `• Negocio: ${texto(neg)}`,
+          `• Cantidad: ${texto(cant)}${v === 'limpieza-neque' || v === 'hipoclorito' ? ' al mes' : ''}`,
+          `• Ciudad: ${ciudad.value}`,
+        ];
+        (window as any).tdbTrack?.('generate_lead', { lead_class: clase, tema: v, segmento: neg.value, origen: 'whatsapp' });
+      }
+      if (nombre.value.trim()) lineas.push(`• Nombre/empresa: ${nombre.value.trim()}`);
+      if (ref) lineas.push(`(Ref. ${ref})`);
+      dlg.close();
+      window.open(`https://wa.me/${NUM}?text=${encodeURIComponent(lineas.join('\n'))}`, '_blank', 'noopener');
+    });
+  }
+</script>
